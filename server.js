@@ -9,7 +9,9 @@ var corsOptions = {
     "http://localhost:8081",
     "http://192.168.20.66:8081",
     "http://192.168.20.66:8082",
-    "http://localhost:8082"
+    "http://localhost:8082",
+    "https://staging.epsonvirtuallaunching.com",
+    "http://staging.epsonvirtuallaunching.com"
   ]
 };
 
