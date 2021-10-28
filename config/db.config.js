@@ -1,5 +1,5 @@
 module.exports = {
-  HOST: "rm-d9jx07jt761qneb86ro.mysql.ap-southeast-5.rds.aliyuncs.com",
+  HOST: "192.168.10.31",
   USER: "alfa",
   PASSWORD: "db_devepson",
   DB: "db_devepson",
