@@ -6,6 +6,7 @@ var http = require('http');
 var https = require('https');
 var privateKey  = fs.readFileSync('/etc/letsencrypt/live/staging.epsonvirtuallaunching.com/privkey.pem', 'utf8');
 var certificate = fs.readFileSync('/etc/letsencrypt/live/staging.epsonvirtuallaunching.com/fullchain.pem', 'utf8');
+var path = require('path');
 
 var credentials = {key: privateKey, cert: certificate}
 
@@ -18,6 +19,7 @@ var corsOptions = {
   ]
 };
 
+app.use("/public", express.static(path.join(__dirname, "public/uploads")))
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
