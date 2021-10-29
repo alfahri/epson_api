@@ -70,5 +70,5 @@ const PORT = process.env.PORT || 3000;
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(3000);
+httpServer.listen(3443);
 httpsServer.listen(3000);
