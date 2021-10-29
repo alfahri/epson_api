@@ -13,18 +13,12 @@ const app = express();
 
 var corsOptions = {
   origin: [
-    "http://localhost:8081",
-    "http://192.168.20.66:8081",
-    "http://192.168.20.66:8082",
-    "http://localhost:8082",
-    "https://staging.epsonvirtuallaunching.com/",
-    "http://staging.epsonvirtuallaunching.com/",
-    "http://147.139.191.123",
-    "http://147.139.191.123:80",
-    "http://147.139.191.123:443"
+    "https://staging.epsonvirtuallaunching.com",
+    "http://staging.epsonvirtuallaunching.com",
   ]
 };
 
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
