@@ -38,7 +38,7 @@ exports.updateStatus = (req, res) => {
 		}
 	}).then(user => {
 		req.body.fromRegis = true
-		email.sendmail(req, res)
+		// email.sendmail(req, res)
 
 		res.status(200).send({ message: "Berhasil update data" })
 	})
@@ -52,7 +52,7 @@ exports.reject = (req, res) => {
 	}).then(user => {
 		req.body.fromReject = true
 		req.body.email = user.email
-		email.sendmail(req, res)
+		// email.sendmail(req, res)
 
 		res.status(200).send({ message: "Berhasil update data", status: true })
 	})
