@@ -82,6 +82,7 @@ exports.signin = (req, res) => {
 		res.status(200).send({
 			id: user.id,
 			email: user.email,
+			data: user,
 			accessToken: token,
 			status: true
 		})
