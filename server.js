@@ -43,7 +43,7 @@ db.sequelize.sync({force: true}).then(() => {
   UserAdmin.create({
     id: 1,
     email: "m.alfahri98@gmail.com",
-    password: "123"
+    password: "$2a$08$kgMXpRRQdgfGT08hYTgljO.Z6mHH/.l6Y.W7VJQnDI8CQnSAKYeEm"
   });
 });
 
