@@ -35,6 +35,10 @@ module.exports = (sequelize, Sequelize) => {
 		token: {
 			type: Sequelize.STRING
 		},
+		rejected: {
+			type: Sequelize.INTEGER,
+			defaultValue: 0
+		},
 		verified: {
 			type: Sequelize.STRING,
 			defaultValue: 'N'

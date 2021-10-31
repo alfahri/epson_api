@@ -11,6 +11,8 @@ module.exports = function(app) {
 	app.get("/api/user/list/register", controller.listUserPending);
 	app.post("/api/user/updateStatus", controller.updateStatus);
 
+	app.post("/api/user/reject", controller.reject);
+
 	app.post("/api/tes/gambar", uploadFile.single("file"), (req, res) => {
 		res.status(200).send({ filename: req.file.filename })
 	})

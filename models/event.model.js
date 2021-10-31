@@ -2,7 +2,8 @@ module.exports = (sequelize, Sequelize) => {
 	const Event = sequelize.define("event", {
 		id: {
 			type: Sequelize.INTEGER,
-			primaryKey: true
+			primaryKey: true,
+			autoIncrement: true
 		},
 		nama: {
 			type: Sequelize.STRING
@@ -23,10 +24,10 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.TEXT
 		},
 		schedule_start: {
-			type: Sequelize.DATE
+			type: Sequelize.STRING
 		},
 		schedule_end: {
-			type: Sequelize.DATE
+			type: Sequelize.STRING
 		}
 	})
 

@@ -31,7 +31,12 @@ exports.sendmail = async (req, res) => {
 
 	if (req.body.fromRegis) {
 		mailOptions.subject = "Registration successfully"
-		mailOptions.text = "Thank you for register in epson event. you can login after admin approved your registration. thank you"
+		mailOptions.text = "Thank you for register in epson event. you can login now. thank you"
+	}
+
+	if (req.body.fromReject) {
+		mailOptions.subject = "Registration unsuccessfully"
+		mailOptions.text = "Sorry your registration fail"
 	}
 
 	let info = await transporter.sendMail(mailOptions, function(error, info) {

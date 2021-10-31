@@ -1,6 +1,7 @@
 const db = require("../models");
 const config = require("../config/auth.config");
 const User = db.user;
+const UserAdmin = db.useradmin;
 const Role = db.role;
 
 const email = require("./email.controller")
@@ -62,6 +63,10 @@ exports.signin = (req, res) => {
 			return res.status(200).send({ message: "Maaf email anda belum aktif", status: false })
 		}
 
+		if (user.rejected == 1) {
+			return res.status(200).send({ message: "Maaf email anda telah di reject", status: false })
+		}
+
 		var passwordIsValid = bcrypt.compareSync(
 			req.body.password,
 			user.password
@@ -93,7 +98,7 @@ exports.signin = (req, res) => {
 }
 
 exports.signinAdmin = (req, res) => {
-	User.findOne({
+	UserAdmin.findOne({
 		where: {
 			email: req.body.email
 		}

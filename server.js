@@ -34,15 +34,21 @@ require('./routes/event.routes')(app);
 
 const db = require("./models");
 const Role = db.role;
+const UserAdmin = db.useradmin;
 
 // Selama dev pake ini
-// db.sequelize.sync({force: true}).then(() => {
-//   console.log('Drop and Resync Db');
-//   initial();
-// });
+db.sequelize.sync({force: true}).then(() => {
+  console.log('Drop and Resync Db');
+  // initial();
+  UserAdmin.create({
+    id: 1,
+    email: "m.alfahri98@gmail.com",
+    password: "123"
+  });
+});
 
 // Kalo udah prod pake ini
-db.sequelize.sync();
+// db.sequelize.sync();
 
 // Kalo udah live apus aja
 // function initial() {

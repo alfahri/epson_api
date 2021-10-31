@@ -4,6 +4,7 @@ const multer = require('multer')
 const upload = multer({
 	dest: '../public/uploads'
 })
+const email = require("./email.controller")
 const User = db.user
 const Image = db.images
 
@@ -18,7 +19,8 @@ exports.userBoard = (req, res) => {
 exports.listUserPending = (req, res) => {
 	User.findAll({
 		where: {
-			verified: 'N'
+			verified: 'N',
+			rejected: 0
 		}
 	}).then(user => {
 		if (user.length <= 0) {
@@ -35,7 +37,24 @@ exports.updateStatus = (req, res) => {
 			id: req.body.id
 		}
 	}).then(user => {
+		req.body.fromRegis = true
+		email.sendmail(req, res)
+
 		res.status(200).send({ message: "Berhasil update data" })
+	})
+}
+
+exports.reject = (req, res) => {
+	User.update({ rejected: 1 }, {
+		where: {
+			id: req.body.id
+		}
+	}).then(user => {
+		req.body.fromReject = true
+		req.body.email = user.email
+		email.sendmail(req, res)
+
+		res.status(200).send({ message: "Berhasil update data", status: true })
 	})
 }
 
