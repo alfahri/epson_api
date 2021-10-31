@@ -21,4 +21,6 @@ module.exports = function(app) {
 	app.get("/public/assets/:namaFile", (req, res) => {
 		return res.send({ message: 'mantap' })
 	})
+
+	app.get("/api/user/list/all", controller.getAllStatus);
 }

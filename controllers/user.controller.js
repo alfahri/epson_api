@@ -99,3 +99,13 @@ exports.getDetail = (req, res) => {
 		res.status(200).send({ message: 'success', status: true, data: user })
 	})
 }
+
+exports.getAllStatus = (req, res) => {
+	User.findAll().then(user => {
+		if (user.length <= 0) {
+			res.status(404).send({ message: "No Data", status: false, data: [] })
+		}
+
+		res.status(200).send({ message: "success", status: true, data: user })
+	})
+}
