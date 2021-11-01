@@ -155,8 +155,8 @@ exports.createUser = (req, res) => {
 		institusi: req.body.institution,
 		password: bcrypt.hashSync(req.body.password, 8),
 		company: req.body.company,
-		job_title: req.body.jobTitle,
-		phone_number: req.body.phoneNumber,
+		job_title: req.body.job_title,
+		phone_number: req.body.phone_number,
 		alamat: req.body.address,
 		thumbnail: req.body.thumbnail,
 		verified: "Y"

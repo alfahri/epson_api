@@ -32,11 +32,17 @@ exports.create = (req, res) => {
 }
 
 exports.getAgenda = (req, res) => {
-	Event.findOne({
-		where: {
-			institusi: req.body.institusi
-		}
-	}).then(event => {
-		res.status(200).send({ message: "success", data: event, status: true })
-	})
+	if (req.body.institusi == 4) {
+		Event.findAll({ group: 'institusi' }).then(event => {
+			res.status(200).send({ message: "success", data: event, status: true })
+		})
+	}else {
+		Event.findOne({
+			where: {
+				institusi: req.body.institusi
+			}
+		}).then(event => {
+			res.status(200).send({ message: "success", data: event, status: true })
+		})
+	}
 }

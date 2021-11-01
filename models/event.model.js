@@ -31,6 +31,9 @@ module.exports = (sequelize, Sequelize) => {
 		},
 		iframe_embed: {
 			type: Sequelize.TEXT
+		},
+		schedule_date: {
+			type: Sequelize.DATE
 		}
 	})
 

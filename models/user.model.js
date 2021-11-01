@@ -45,6 +45,13 @@ module.exports = (sequelize, Sequelize) => {
 		},
 		thumbnail: {
 			type: Sequelize.STRING
+		},
+		first_login: {
+			type: Sequelize.DATE
+		},
+		fl_status: {
+			type: Sequelize.INTEGER,
+			defaultValue: 0
 		}
 	})
 

@@ -3,6 +3,7 @@ const config = require("../config/auth.config");
 const User = db.user;
 const UserAdmin = db.useradmin;
 const Role = db.role;
+const moment = require("moment");
 
 const email = require("./email.controller")
 
@@ -57,6 +58,10 @@ exports.signin = (req, res) => {
 	.then(user => {
 		if (!user) {
 			return res.status(200).send({message: "invalid email - Invalid Password", status: false});
+		}
+
+		if (user.fl_status == 0) {
+			User.update({ first_login: moment().format("YYYY-MM-DD h:mm:ss"), fl_status: 1 }, { where: { email: req.body.email } })
 		}
 
 		if (user.verified == 'N') {
