@@ -25,7 +25,12 @@ exports.listUserPending = (req, res) => {
 	User.findAll({
 		where: {
 			verified: 'N',
-			rejected: 0
+			rejected: 0,
+			email: {[Op.like]:[`%${req.query.email ?? ''}%`]},
+			company: {[Op.like]:[`%${req.query.company ?? ''}%`]},
+			phone_number: {[Op.like]:[`%${req.query.phone_number ?? ''}%`]},
+			first_name: {[Op.like]:[`%${req.query.nama ?? ''}%`]},
+			institusi: {[Op.like]:[`%${req.query.institusi ?? ''}%`]}
 		}
 	}).then(user => {
 		if (user.length <= 0) {
