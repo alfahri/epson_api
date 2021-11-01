@@ -29,22 +29,61 @@ exports.sendmail = async (req, res) => {
 		text: `This is your link for forgot password http://192.168.20.66:8081/#/reset-password/${token}/${req.body.email}`,
 	}
 
-	if (req.body.fromRegis) {
-		mailOptions.subject = "Registration successfully"
-		mailOptions.text = "Thank you for register in epson event. you can login now. thank you"
-	}
-
-	if (req.body.fromReject) {
-		mailOptions.subject = "Registration unsuccessfully"
-		mailOptions.text = "Sorry your registration fail"
-	}
-
 	let info = await transporter.sendMail(mailOptions, function(error, info) {
 		if (error) {
 			res.status(500).send({message: error});
 		}
 
 		res.status(200).send({message: 'Berhasil kirim email'});
+	})
+}
+
+exports.sendmailApproved = async (req, res) => {
+	var transporter = nodemailer.createTransport({
+		host: "smtpdm-ap-southeast-1.aliyun.com",
+		port: 465,
+		secure: true,
+		auth: {
+			user: "no-reply@epsonvirtuallaunching.com",
+			pass: "5p6stosuSL"
+		}
+	})
+
+	var token = jwt.sign({email:req.body.email}, config.secret, {
+		expiresIn: 60
+	})
+
+	var mailOptions = {
+		from: "no-reply@epsonvirtuallaunching.com",
+		to: req.body.email,
+		cc: "",
+		bcc: "",
+		subject: "Your Invitation to Epson Virtual Launch",
+		html: `<p>Dear ${req.body.name}</p>
+
+<p>
+You are invited to join our Epson Virtual launch 
+Please visit https://epsonvirtuallaunching.com/
+On Wednesday 10th November 2021.
+</p>
+
+<p>
+Don’t forget to entry with your email and your password that you have created.
+</p>
+<p>
+See you soon
+</p>`,
+	}
+
+	let info = await transporter.sendMail(mailOptions, function(error, info) {
+		if (error) {
+			// res.status(500).send({message: error});
+
+			return error
+		}
+
+		// res.status(200).send({message: 'Berhasil kirim email'});
+		return "Berhasil dikirim"
 	})
 }
 

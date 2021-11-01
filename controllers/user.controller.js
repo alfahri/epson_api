@@ -38,9 +38,17 @@ exports.updateStatus = (req, res) => {
 		}
 	}).then(user => {
 		req.body.fromRegis = true
-		// email.sendmail(req, res)
+		User.findOne({
+			where: {
+				id: req.body.id
+			}
+		}).then(dataUser => {
+			req.body.name = dataUser.first_name
+			req.body.email = dataUser.email
+			email.sendmailApproved(req)
+		})
 
-		res.status(200).send({ message: "Berhasil update data" })
+		res.status(200).send({ message: "Berhasil update data", body: req.body })
 	})
 }
 
