@@ -28,6 +28,9 @@ module.exports = (sequelize, Sequelize) => {
 		},
 		schedule_end: {
 			type: Sequelize.STRING
+		},
+		iframe_embed: {
+			type: Sequelize.TEXT
 		}
 	})
 

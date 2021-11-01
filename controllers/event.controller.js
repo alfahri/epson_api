@@ -22,7 +22,8 @@ exports.create = (req, res) => {
 		description: req.body.description,
 		participant: req.body.participant,
 		schedule_start: req.body.schedule_start,
-		schedule_end: req.body.schedule_end
+		schedule_end: req.body.schedule_end,
+		iframe_embed: req.body.iframe_embed
 	}).then(event => {
 		res.status(200).send({ message: "success", status: true, data: [] })
 	}).catch(err => {

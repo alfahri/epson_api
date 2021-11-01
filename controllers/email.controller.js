@@ -60,19 +60,63 @@ exports.sendmailApproved = async (req, res) => {
 		bcc: "",
 		subject: "Your Invitation to Epson Virtual Launch",
 		html: `<p>Dear ${req.body.name}</p>
+				<p>
+				You are invited to join our Epson Virtual launch 
+				Please visit https://epsonvirtuallaunching.com/
+				On Wednesday 10th November 2021.
+				</p>
+
+				<p>
+				Don’t forget to entry with your email and your password that you have created.
+				</p>
+				<p>
+				See you soon
+				</p>`,
+	}
+
+	let info = await transporter.sendMail(mailOptions, function(error, info) {
+		if (error) {
+			// res.status(500).send({message: error});
+
+			return error
+		}
+
+		// res.status(200).send({message: 'Berhasil kirim email'});
+		return "Berhasil dikirim"
+	})
+}
+
+exports.sendmailRejected = async (req, res) => {
+	var transporter = nodemailer.createTransport({
+		host: "smtpdm-ap-southeast-1.aliyun.com",
+		port: 465,
+		secure: true,
+		auth: {
+			user: "no-reply@epsonvirtuallaunching.com",
+			pass: "5p6stosuSL"
+		}
+	})
+
+	var token = jwt.sign({email:req.body.email}, config.secret, {
+		expiresIn: 60
+	})
+
+	var mailOptions = {
+		from: "no-reply@epsonvirtuallaunching.com",
+		to: req.body.email,
+		cc: "",
+		bcc: "",
+		subject: "Your Invitation to Epson Virtual Launch",
+		html: `<p>Dear ${req.body.name}</p>
 
 <p>
-You are invited to join our Epson Virtual launch 
-Please visit https://epsonvirtuallaunching.com/
-On Wednesday 10th November 2021.
+We are very sorry that we cannot invited to join our Epson Virtual launch 
 </p>
 
-<p>
-Don’t forget to entry with your email and your password that you have created.
-</p>
 <p>
 See you soon
-</p>`,
+</p>
+`,
 	}
 
 	let info = await transporter.sendMail(mailOptions, function(error, info) {

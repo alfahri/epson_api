@@ -37,18 +37,18 @@ const Role = db.role;
 const UserAdmin = db.useradmin;
 
 // Selama dev pake ini
-// db.sequelize.sync({force: true}).then(() => {
-//   console.log('Drop and Resync Db');
-//   // initial();
-//   UserAdmin.create({
-//     id: 1,
-//     email: "m.alfahri98@gmail.com",
-//     password: "$2a$08$kgMXpRRQdgfGT08hYTgljO.Z6mHH/.l6Y.W7VJQnDI8CQnSAKYeEm"
-//   });
-// });
+db.sequelize.sync({force: true}).then(() => {
+  console.log('Drop and Resync Db');
+  // initial();
+  UserAdmin.create({
+    id: 1,
+    email: "m.alfahri98@gmail.com",
+    password: "$2a$08$kgMXpRRQdgfGT08hYTgljO.Z6mHH/.l6Y.W7VJQnDI8CQnSAKYeEm"
+  });
+});
 
 // Kalo udah prod pake ini
-db.sequelize.sync();
+// db.sequelize.sync();
 
 // Kalo udah live apus aja
 // function initial() {
