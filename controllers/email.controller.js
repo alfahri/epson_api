@@ -59,19 +59,22 @@ exports.sendmailApproved = async (req, res) => {
 		cc: "",
 		bcc: "",
 		subject: "Your Invitation to Epson Virtual Launch",
-		html: `<p>Dear ${req.body.name}</p>
-				<p>
-				You are invited to join our Epson Virtual launch 
-				Please visit https://epsonvirtuallaunching.com/
-				On Wednesday 10th November 2021.
-				</p>
+		html: `<p>Dear Partners,</p>
+</p> 
+You have been invited to join our event New Product Launching EPSON L-SERIES DAN SC-F130 -
+ “UNFOLD YOUR WORLD, UNLEASH YOUR ULTIMATE ABILITY TO WIN THE BUSINESS: on Wednesday, November 10th, 2021.
+</p>
 
-				<p>
-				Don’t forget to entry with your email and your password that you have created.
-				</p>
-				<p>
-				See you soon
-				</p>`,
+<p>
+Please access this link: https://epsonvirtuallaunching.com
+</p>
+ 
+<p>
+Using your email and password that you have submitted on registration.
+</p>
+
+<p>
+Thank you.</p>`,
 	}
 
 	let info = await transporter.sendMail(mailOptions, function(error, info) {
