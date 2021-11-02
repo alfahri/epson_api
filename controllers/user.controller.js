@@ -4,9 +4,11 @@ const multer = require('multer')
 const upload = multer({
 	dest: '../public/uploads'
 })
+const moment = require("moment");
 const email = require("./email.controller")
 const User = db.user
 const Image = db.images
+const UserLog = db.userLog
 
 const Op = db.Sequelize.Op;
 
@@ -42,7 +44,11 @@ exports.listUserPending = (req, res) => {
 }
 
 exports.updateStatus = (req, res) => {
-	User.update({ verified: req.body.verified }, {
+	User.update({
+		verified: req.body.verified,
+		approved_time: moment().format("YYYY-MM-DD H:mm:ss"),
+		approved_by: req.body.emailAdmin
+	}, {
 		where: {
 			id: req.body.id
 		}

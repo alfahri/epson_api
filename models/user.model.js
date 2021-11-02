@@ -52,6 +52,12 @@ module.exports = (sequelize, Sequelize) => {
 		fl_status: {
 			type: Sequelize.INTEGER,
 			defaultValue: 0
+		},
+		approved_time: {
+			type: Sequelize.DATE
+		},
+		approved_by: {
+			type: Sequelize.STRING
 		}
 	})
 
