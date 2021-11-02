@@ -49,6 +49,55 @@ exports.signup = (req, res) => {
 	})
 }
 
+exports.editUser = (req, res) => {
+	if (req.body.password == "") {
+		User.update({
+			email: req.body.email,
+			first_name: req.body.firstName,
+			last_name: req.body.lastName,
+			institusi: req.body.institution,
+			company: req.body.company,
+			job_title: req.body.jobTitle,
+			phone_number: req.body.phoneNumber,
+			alamat: req.body.address,
+			thumbnail: req.body.thumbnail,
+		}, {
+			where: {
+				id: req.body.id
+			}
+		})
+		.then(user => {
+			res.status(201).send({message: 'User telah berhasil dirubah'});
+		})
+		.catch(err => {
+			res.status(500).send({message: err.message});
+		})
+	}else {
+		User.update({
+			email: req.body.email,
+			first_name: req.body.firstName,
+			last_name: req.body.lastName,
+			institusi: req.body.institution,
+			password: bcrypt.hashSync(req.body.password, 8),
+			company: req.body.company,
+			job_title: req.body.jobTitle,
+			phone_number: req.body.phoneNumber,
+			alamat: req.body.address,
+			thumbnail: req.body.thumbnail,
+		}, {
+			where: {
+				id: req.body.id
+			}
+		})
+		.then(user => {
+			res.status(201).send({message: 'User telah berhasil dirubah'});
+		})
+		.catch(err => {
+			res.status(500).send({message: err.message});
+		})
+	}
+}
+
 exports.signin = (req, res) => {
 	User.findOne({
 		where: {
