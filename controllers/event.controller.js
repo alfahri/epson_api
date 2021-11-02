@@ -47,3 +47,48 @@ exports.getAgenda = (req, res) => {
 		})
 	}
 }
+
+exports.deleteAgenda = (req, res) => {
+	Event.destroy({
+		where: {
+			id: req.body.id
+		}
+	}).then(event => {
+		res.status(200).send({ message: "success", status: true })
+	})
+}
+
+exports.getDetailAgenda = (req, res) => {
+	Event.findOne({
+		where: {
+			id: req.query.id
+		}
+	}).then(event => {
+		if (!event) {
+			res.status(200).send({ message: "No data", status: false, data: [] })
+		}
+		res.status(200).send({ message: "success", status: true, data: event })
+	})
+}
+
+exports.updateAgenda = (req, res) => {
+	Event.update({
+		nama: req.body.nama,
+		institusi: req.body.institusi,
+		duration: req.body.totalDuration,
+		description: req.body.description,
+		participant: req.body.participant,
+		schedule_start: req.body.schedule_start,
+		schedule_end: req.body.schedule_end,
+		iframe_embed: req.body.iframe_embed,
+		schedule_date: req.body.schedule_date
+	}, {
+		where: {
+			id: req.body.id
+		}
+	}).then(event => {
+		res.status(200).send({ message: "success", status: true })
+	}).catch(err => {
+		res.status(500).send({ message: err.message })
+	})
+}
