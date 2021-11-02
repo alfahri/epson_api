@@ -16,6 +16,8 @@ var corsOptions = {
   origin: [
     "https://staging.epsonvirtuallaunching.com",
     "http://staging.epsonvirtuallaunching.com",
+    "http://localhost:8080",
+    "http://localhost:8081"
   ]
 };
 
