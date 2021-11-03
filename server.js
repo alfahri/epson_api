@@ -74,6 +74,12 @@ const PORT = process.env.PORT || 3000;
 
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
+const io = require('socket.io')(httpServer);
 
 httpServer.listen(3443);
-httpsServer.listen(3000);
+httpsServer.listen(3000);io.on("connection", socket => {
+  socket.on("terimaChat", data => {
+    console.log(data)
+    io.emit("kirimChat", data)
+  })
+})
