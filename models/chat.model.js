@@ -13,6 +13,15 @@ module.exports = (sequelize, Sequelize) => {
 		},
 		id_agenda: {
 			type: Sequelize.STRING
+		},
+		first_name: {
+			type: Sequelize.STRING
+		},
+		last_name: {
+			type: Sequelize.STRING
+		},
+		email: {
+			type: Sequelize.STRING
 		}
 	})
 

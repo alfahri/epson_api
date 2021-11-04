@@ -26,4 +26,5 @@ module.exports = function(app) {
 
 	app.get('/api/email/sendtes', controller.sendMailTes);
 	app.post("/api/user/cms/create", controller.createUser)
+	app.post("/api/user/update/gambar", controller.updateGambarUser)
 }
