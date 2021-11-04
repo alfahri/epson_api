@@ -106,7 +106,7 @@ exports.signin = (req, res) => {
 	})
 	.then(user => {
 		if (!user) {
-			return res.status(200).send({message: "invalid email - Invalid Password", status: false});
+			return res.status(200).send({message: "invalid email", status: false});
 		}
 
 		if (user.fl_status == 0) {
@@ -128,7 +128,7 @@ exports.signin = (req, res) => {
 
 		if (!passwordIsValid) {
 			return res.status(200).send({
-				message: "invalid email - Invalid Password",
+				message: "Invalid Password",
 				status: false
 			})
 		}

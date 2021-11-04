@@ -95,7 +95,8 @@ io.on("connection", socket => {
     }).then(chat => {
       console.log("berhasil simpan chat")
     })
+    socket.join(data.institusi)
     console.log(data)
-    io.emit("kirimChat", data)
+    io.to(data.institusi).emit("kirimChat", data)
   })
 })
