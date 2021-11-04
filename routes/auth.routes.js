@@ -7,4 +7,5 @@ module.exports = function(app) {
 	app.post("/api/auth/signin", controller.signin);
 	app.post("/api/admin/auth/signin", controller.signinAdmin);
 	app.get("/api/verifyToken", [authJwt.verifyToken], controller.verifyToken);
+	app.post("/api/auth/edit/user", controller.editUser)
 }

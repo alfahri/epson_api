@@ -55,7 +55,7 @@ exports.editUser = (req, res) => {
 			email: req.body.email,
 			first_name: req.body.firstName,
 			last_name: req.body.lastName,
-			institusi: req.body.institution,
+			institusi: req.body.institusi,
 			company: req.body.company,
 			job_title: req.body.jobTitle,
 			phone_number: req.body.phoneNumber,
