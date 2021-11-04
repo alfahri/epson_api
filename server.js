@@ -17,7 +17,9 @@ var corsOptions = {
     "https://staging.epsonvirtuallaunching.com",
     "http://staging.epsonvirtuallaunching.com",
     "http://localhost:8080",
-    "http://localhost:8081"
+    "http://localhost:8081",
+    "http://10.103.1.214:8080",
+    "http://10.103.1.214:8081"
   ]
 };
 
@@ -37,6 +39,7 @@ require('./routes/event.routes')(app);
 const db = require("./models");
 const Role = db.role;
 const UserAdmin = db.useradmin;
+const Chat = db.chat;
 
 // Selama dev pake ini
 // db.sequelize.sync({force: true}).then(() => {
@@ -71,14 +74,27 @@ db.sequelize.sync();
 // }
 
 const PORT = process.env.PORT || 3000;
+// const httpServer = app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}.`);
+// });
 
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 const io = require('socket.io')(httpServer);
 
 httpServer.listen(3443);
-httpsServer.listen(3000);io.on("connection", socket => {
+httpsServer.listen(3000);
+io.on("connection", socket => {
   socket.on("terimaChat", data => {
+    Chat.create({
+      id_user: data.id,
+      isi_pesan: data.message,
+      id_agenda: data.institusi,
+      first_name: data.first_name,
+      last_name: data.last_name,
+    }).then(chat => {
+      console.log("berhasil simpan chat")
+    })
     console.log(data)
     io.emit("kirimChat", data)
   })

@@ -8,4 +8,5 @@ module.exports = function(app) {
 	app.post("/api/event/delete", controller.deleteAgenda);
 	app.get("/api/event/edit", controller.getDetailAgenda);
 	app.post("/api/event/update", controller.updateAgenda);
+	app.get("/api/event/getchat", controller.getChat)
 }

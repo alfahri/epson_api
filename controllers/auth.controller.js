@@ -127,8 +127,8 @@ exports.signin = (req, res) => {
 		)
 
 		if (!passwordIsValid) {
-			return res.status(401).send({
-				message: "Password salah",
+			return res.status(200).send({
+				message: "invalid email - Invalid Password",
 				status: false
 			})
 		}

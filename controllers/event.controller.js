@@ -92,3 +92,17 @@ exports.updateAgenda = (req, res) => {
 		res.status(500).send({ message: err.message })
 	})
 }
+
+exports.getChat = (req, res) => {
+	Event.findAll({
+		where: {
+			institusi: req.query.institusi
+		}
+	}).then(event => {
+		if (event.length <= 0) {
+			return res.status(200).send({ message: "no data", data: [], status: false })
+		}
+
+		res.status(200).send({ message: "success", data: event, status: true })
+	})
+}
