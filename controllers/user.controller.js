@@ -133,7 +133,18 @@ exports.getDetail = (req, res) => {
 }
 
 exports.getAllStatus = (req, res) => {
+	var jumlahData = 0
 	User.findAll({
+		where: {
+			verified: {[Op.notIn]:["N"]}
+		}
+	}).then(user => {
+		jumlahData = user.length
+                console.log('jumlah data ', user.length)
+	})
+	User.findAll({
+                offset: 0,
+                limit: 10,
 		where: {
 			verified: {[Op.notIn]:["N"]}
 		}
@@ -142,7 +153,7 @@ exports.getAllStatus = (req, res) => {
 			res.status(404).send({ message: "No Data", status: false, data: [] })
 		}
 
-		res.status(200).send({ message: "success", status: true, data: user })
+		res.status(200).send({ message: "success", status: true, data: user, jumlahData: jumlahData })
 	})
 }
 
