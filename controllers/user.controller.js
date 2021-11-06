@@ -133,28 +133,30 @@ exports.getDetail = (req, res) => {
 }
 
 exports.getAllStatus = (req, res) => {
-	var jumlahData = 0
-	User.findAll({
-		where: {
-			verified: {[Op.notIn]:["N"]}
-		}
-	}).then(user => {
-		jumlahData = user.length
-                console.log('jumlah data ', user.length)
-	})
-	User.findAll({
-                offset: 0,
-                limit: 10,
-		where: {
-			verified: {[Op.notIn]:["N"]}
-		}
-	}).then(user => {
-		if (user.length <= 0) {
-			res.status(404).send({ message: "No Data", status: false, data: [] })
-		}
+    var jumlahData = 0
+    User.findAll({
+            where: {
+                    verified: {[Op.notIn]:["N"]}
+            }
+    }).then(user => {
+            jumlahData = user.length
+            console.log('jumlah data ', user.length)
+    })
+    var limit = parseInt(req.query.limit)
+    var offset = parseInt(req.query.offset)
+    User.findAll({
+            where: {
+                    verified: {[Op.notIn]:["N"]}
+            },
+            offset: offset,
+            limit: limit
+    }).then(user => {
+            if (user.length <= 0) {
+                    res.status(404).send({ message: "No Data", status: false, data: [] })
+            }
 
-		res.status(200).send({ message: "success", status: true, data: user, jumlahData: jumlahData })
-	})
+            res.status(200).send({ message: "success", status: true, data: user, jumlahData: jumlahData })
+    })
 }
 
 exports.sendMailTes= (req, res) => {
