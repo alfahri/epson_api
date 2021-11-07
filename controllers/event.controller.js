@@ -1,6 +1,7 @@
 const db = require("../models");
 const config = require("../config/auth.config");
 const Event = db.event;
+const Chat = db.chat;
 
 var jwt = require('jsonwebtoken');
 
@@ -94,9 +95,9 @@ exports.updateAgenda = (req, res) => {
 }
 
 exports.getChat = (req, res) => {
-	Event.findAll({
+	Chat.findAll({
 		where: {
-			institusi: req.query.institusi
+			id_agenda: req.query.institusi
 		}
 	}).then(event => {
 		if (event.length <= 0) {
