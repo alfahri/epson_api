@@ -137,6 +137,8 @@ exports.signin = (req, res) => {
 			expiresIn: 3600
 		})
 
+		User.update({ token: token }, { where: { id: user.id } })
+
 		var authorities = [];
 		res.status(200).send({
 			id: user.id,
@@ -192,5 +194,15 @@ exports.signinAdmin = (req, res) => {
 }
 
 exports.verifyToken = (req, res) => {
-	res.status(200).send({ message: 'Token masih valid', status: true });
+	if (req.query.id) {
+		User.findOne({
+			where: {
+				id: req.query.id
+			}
+		}).then(user => {
+			res.status(200).send({ data: user, message: 'Token masih valid', status: true });
+		})
+	}else {
+		res.status(200).send({ data: { token: "" }, message: 'Token masih valid', status: true });
+	}
 }
