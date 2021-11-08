@@ -29,6 +29,7 @@ db.userLog = require("./userLog.model.js")(sequelize, Sequelize);
 db.event = require("./event.model")(sequelize, Sequelize);
 db.useradmin = require("./userAdmin.model")(sequelize, Sequelize);
 db.chat = require("./chat.model")(sequelize, Sequelize);
+db.logagenda = require("./logAgenda.model")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
 	through: "user_roles",

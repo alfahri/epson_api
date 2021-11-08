@@ -40,6 +40,7 @@ const db = require("./models");
 const Role = db.role;
 const UserAdmin = db.useradmin;
 const Chat = db.chat;
+const LogAgenda = db.logagenda;
 
 // Selama dev pake ini
 // db.sequelize.sync({force: true}).then(() => {
@@ -82,9 +83,26 @@ var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 const io = require('socket.io')(httpServer);
 
-httpServer.listen(3443);
+var dataUserConnect = {}
+var dataUserDisconnect = {}
+
+httpServer.listen(8000);
 httpsServer.listen(3000);
 io.on("connection", socket => {
+  socket.on("joinAgenda", data => {
+    socket.join(data.institusi)
+    let param = {
+      idUser: data.user,
+      institusi: data.institusi,
+      duration: 0
+    }
+    if (typeof dataUserDisconnect[data.user] === 'undefined') {
+      dataUserConnect [data.user] = param
+    } else {
+      dataUserConnect[data.user] = dataUserDisconnect[data.user]
+    }
+    console.log(dataUserConnect)
+  })
   socket.on("terimaChat", data => {
     Chat.create({
       id_user: data.id,
@@ -95,8 +113,49 @@ io.on("connection", socket => {
     }).then(chat => {
       console.log("berhasil simpan chat")
     })
-    socket.join(data.institusi)
     console.log(data)
     io.to(data.institusi).emit("kirimChat", data)
+  })
+
+  socket.on("anyone-login", data => {
+    // console.log(data)
+  })
+
+  socket.on("leaveAgenda", data => {
+    socket.leave(data.institusi)
+    if (typeof dataUserDisconnect[data.user] === "undefined") {
+      dataUserDisconnect[data.user] = data
+    } else {
+      dataUserDisconnect[data.user].duration = dataUserDisconnect[data.user].duration + data.duration
+    }
+    LogAgenda.findOne({
+      where: {
+        id_user: dataUserDisconnect[data.user].idUser
+      }
+    }).then(logAgenda => {
+      if (logAgenda == null) {
+        LogAgenda.create({
+          id_user: dataUserDisconnect[data.user].idUser,
+          id_agenda: dataUserDisconnect[data.user].institusi,
+          first_name: dataUserDisconnect[data.user].first_name,
+          last_name: dataUserDisconnect[data.user].last_name,
+          email: dataUserDisconnect[data.user].email,
+          duration: dataUserDisconnect[data.user].duration
+        })
+      }else {
+        let durationFinal = logAgenda.duration + data.duration
+        LogAgenda.update({
+          duration: durationFinal
+        }, {
+          where: {
+            id: logAgenda.id
+          }
+        })
+      }
+    })
+  })
+
+  socket.on("disconnect", data => {
+    console.log('user disconnect')
   })
 })
