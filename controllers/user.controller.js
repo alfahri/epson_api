@@ -162,6 +162,23 @@ exports.getAllStatus = (req, res) => {
     })
 }
 
+exports.getAllStatusFilter = (req, res) => {
+	let param = {}
+
+	if (req.body.institusi) {
+		param.institusi = `${req.body.institusi}`
+	}
+
+	if (req.body.email) {
+		param.email = {[Op.like]:[`%${req.body.email ?? ''}%`]}
+	}
+	User.findAll({
+		where: param
+	}).then(user => {
+		res.status(200).send({ message: "success", data: user, status: true })
+	})
+}
+
 exports.sendMailTes= (req, res) => {
 	req.body.email = "m.alfahri98@gmail.com"
 	email.sendmail(req)

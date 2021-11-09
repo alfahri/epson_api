@@ -30,4 +30,5 @@ module.exports = function(app) {
 	app.post('/api/user/import/excel', controller.importExcel)
 	app.get('/api/user/history/login', controller.historyLogin)
 	app.post('/api/user/reset-password', [authJwt.verifyToken], controller.resetPassword)
+	app.post('/api/user/attendees/search', controller.getAllStatusFilter)
 }
