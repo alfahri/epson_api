@@ -118,8 +118,8 @@ io.on("connection", socket => {
     io.to(data.institusi).emit("kirimChat", data)
   })
 
-  socket.on("anyone-login", data => {
-    // console.log(data)
+  socket.on("anyoneLogin", data => {
+    io.emit("anyoneLogin", data)
   })
 
   socket.on("leaveAgenda", data => {
