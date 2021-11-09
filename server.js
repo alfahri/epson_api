@@ -14,12 +14,8 @@ const app = express();
 
 var corsOptions = {
   origin: [
-    "https://staging.epsonvirtuallaunching.com",
-    "http://staging.epsonvirtuallaunching.com",
-    "http://localhost:8080",
-    "http://localhost:8081",
-    "http://10.103.1.214:8080",
-    "http://10.103.1.214:8081"
+    "https://epsonvirtuallaunching.com",
+    "http://epsonvirtuallaunching.com"
   ]
 };
 
@@ -86,8 +82,8 @@ const io = require('socket.io')(httpServer);
 var dataUserConnect = {}
 var dataUserDisconnect = {}
 
-httpServer.listen(8000);
-httpsServer.listen(3000);
+httpServer.listen(8080);
+httpsServer.listen(8443);
 io.on("connection", socket => {
 
   socket.on("joinAgenda", data => {
