@@ -3,6 +3,7 @@ const config = require("../config/auth.config");
 const User = db.user;
 const UserAdmin = db.useradmin;
 const Role = db.role;
+const UserLog = db.userLog;
 const moment = require("moment");
 
 const email = require("./email.controller")
@@ -120,6 +121,13 @@ exports.signin = (req, res) => {
 		if (user.rejected == 1) {
 			return res.status(200).send({ message: "Maaf email anda telah di reject", status: false })
 		}
+
+		console.log('IP Address : ', req.socket.remoteAddress)
+
+		UserLog.create({
+			idUser: user.id,
+			ip: req.socket.remoteAddress
+		})
 
 		var passwordIsValid = bcrypt.compareSync(
 			req.body.password,

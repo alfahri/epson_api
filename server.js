@@ -89,6 +89,7 @@ var dataUserDisconnect = {}
 httpServer.listen(8000);
 httpsServer.listen(3000);
 io.on("connection", socket => {
+
   socket.on("joinAgenda", data => {
     socket.join(data.institusi)
     let param = {
@@ -103,6 +104,7 @@ io.on("connection", socket => {
     }
     console.log(dataUserConnect)
   })
+
   socket.on("terimaChat", data => {
     Chat.create({
       id_user: data.id,
@@ -110,6 +112,7 @@ io.on("connection", socket => {
       id_agenda: data.institusi,
       first_name: data.first_name,
       last_name: data.last_name,
+      thumbnail: data.thumb
     }).then(chat => {
       console.log("berhasil simpan chat")
     })
