@@ -162,4 +162,9 @@ io.on("connection", socket => {
   socket.on("disconnect", data => {
     console.log('user disconnect')
   })
+
+  socket.on("update-agenda", data => {
+    io.emit("update-agenda", data)
+    console.log(data)
+  })
 })
