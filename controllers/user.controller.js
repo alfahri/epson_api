@@ -139,8 +139,9 @@ exports.getAllStatus = (req, res) => {
                     verified: {[Op.notIn]:["N"]}
             }
     }).then(user => {
-            jumlahData = user.length
-            var limit = parseInt(req.query.limit)
+        jumlahData = user.length
+        if (req.query.limit) {
+        	var limit = parseInt(req.query.limit)
 		    var offset = parseInt(req.query.offset)
             User.findAll({
 		            where: {
@@ -155,6 +156,9 @@ exports.getAllStatus = (req, res) => {
 
 		            res.status(200).send({ message: "success", status: true, data: user, jumlahData: jumlahData })
 		    })
+        } else {
+        	res.status(200).send({ message: "success", status: true, data: user, jumlahData: jumlahData })
+        }
     })
 }
 
@@ -195,5 +199,31 @@ exports.updateGambarUser = (req, res) => {
 	}).then(user => {
 		console.log(req.body)
 		res.status(200).send({ message: "success" })
+	})
+}
+
+exports.importExcel = (req, res) => {
+	res.status(200).send({ message: "success", data: req.body, status: true })
+}
+
+exports.historyLogin = (req, res) => {
+	UserLog.findAndCountAll().then(user => {
+		res.status(200).send({ message: "success", data: user.count, status: true })
+	})
+}
+
+exports.resetPassword = (req, res) => {
+	User.update({
+		password: bcrypt.hashSync(req.body.password, 8)
+	}, {
+		where: {
+			email: req.body.email
+		}
+	}).then(user => {
+		if (!user) {
+			res.status(200).send({ message: "Error", data: [], status: false })
+		}
+
+		res.status(200).send({ message: "success", data: user, status: true })
 	})
 }

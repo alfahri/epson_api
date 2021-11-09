@@ -27,4 +27,7 @@ module.exports = function(app) {
 	app.get('/api/email/sendtes', controller.sendMailTes);
 	app.post("/api/user/cms/create", controller.createUser)
 	app.post("/api/user/update/gambar", controller.updateGambarUser)
+	app.post('/api/user/import/excel', controller.importExcel)
+	app.get('/api/user/history/login', controller.historyLogin)
+	app.post('/api/user/reset-password', [authJwt.verifyToken], controller.resetPassword)
 }
