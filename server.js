@@ -107,12 +107,12 @@ io.on("connection", socket => {
 
   socket.on("terimaChat", data => {
     Chat.create({
-      id_user: data.id,
+      id_user: data.user,
       isi_pesan: data.message,
       id_agenda: data.institusi,
       first_name: data.first_name,
       last_name: data.last_name,
-      thumbnail: data.thumb
+      thumbnail: data.thumbnail
     }).then(chat => {
       console.log("berhasil simpan chat")
     })
