@@ -26,7 +26,7 @@ exports.sendmail = async (req, res) => {
 		cc: "",
 		bcc: "",
 		subject: "Forgot Password",
-		text: `This is your link for forgot password http://192.168.20.66:8081/#/reset-password/${token}/${req.body.email}`,
+		text: `This is your link for forgot password https://staging.epsonvirtuallaunching.com/#/reset-password/${token}/${req.body.email}`,
 	}
 
 	let info = await transporter.sendMail(mailOptions, function(error, info) {
